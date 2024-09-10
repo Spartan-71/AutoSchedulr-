@@ -5,7 +5,7 @@ from gcsa.reminders import PopupReminder
 from datetime import datetime
 import json
 
-gc = GoogleCalendar('anishdabhane@gmail.com')
+gc = GoogleCalendar(save_token=False)
 
 
 with open('events.json', 'r') as json_file:

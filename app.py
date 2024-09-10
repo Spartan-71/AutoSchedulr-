@@ -8,16 +8,15 @@ from backend.google_schedulr import CalendarScheduler
 
 # Using "with" notation
 with st.sidebar:
-    with st.expander("**How to Use ?**"):
-        st.write("slkdjaksjdlks skdlksl;d")
-        st.write("salkdjkjlnasn")
+    # with st.expander("**How to Use ?**"):
+    #     st.write("slkdjaksjdlks skdlksl;d")
     with st.expander("Socials"):
         st.link_button("Github", "https://github.com/Spartan-71/AutoSchedulr",use_container_width=True)
         st.link_button("Twitter", "https://x.com/AnishDabhane",use_container_width=True)
     
     with st.expander("**Feedback**"):
         st.text_area(label="feedback",label_visibility="collapsed")
-        if st.button("submit"):
+        if st.button("SUBMIT"):
             st.write("Thanks")
 
     st.markdown("#### RATE US")
@@ -27,22 +26,22 @@ with st.sidebar:
 
 
 
-@st.dialog("SignIN/SignUp")
-def authentication():
-    st.markdown("##### Name")
-    name = st.text_input(label="Name",label_visibility="collapsed")
-    st.markdown("##### Gmail_ID")
-    gmail_id= st.text_input(label="Gmail",label_visibility="collapsed")
+# @st.dialog("SignIN/SignUp")
+# def authentication():
+#     st.markdown("##### Name")
+#     name = st.text_input(label="Name",label_visibility="collapsed")
+#     st.markdown("##### Gmail_ID")
+#     gmail_id= st.text_input(label="Gmail",label_visibility="collapsed")
     
-    if st.button("Submit"):
-        st.rerun()
+#     if st.button("Submit"):
+#         st.rerun()
 
-if st.session_state:
-    authentication()
+# # if st.session_state:
+# #     authentication()
 
 
 llm_obj= LLMScheduler()
-cal_obj = CalendarScheduler(email="anishdabhane71@gmail.com")
+cal_obj = CalendarScheduler()
 review = 1
 
 st.logo("logo.png")
@@ -109,9 +108,9 @@ col3.metric("Downvotes", downvotes, "4")
 
 st.divider()
 
-col4,col5 = st.columns(2)
-with col4:
-    st.link_button("Github", "https://github.com/Spartan-71/AutoSchedulr",use_container_width=True)
-with col5:
-    st.link_button("Twitter", "https://x.com/AnishDabhane",use_container_width=True)
+# col4,col5 = st.columns(2)
+# with col4:
+#     st.link_button("Github", "https://github.com/Spartan-71/AutoSchedulr",use_container_width=True)
+# with col5:
+#     st.link_button("Twitter", "https://x.com/AnishDabhane",use_container_width=True)
 
