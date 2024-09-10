@@ -1,7 +1,5 @@
-import streamlit as st
 import time
-import numpy as np
-import pandas as pd
+import streamlit as st
 from backend.llm_schedulr import LLMScheduler
 from backend.google_schedulr import CalendarScheduler
 
@@ -39,8 +37,7 @@ with st.sidebar:
 # # if st.session_state:
 # #     authentication()
 
-
-llm_obj= LLMScheduler()
+llm_obj= LLMScheduler(APIkey=st.secrets["API_KEY"])
 cal_obj = CalendarScheduler()
 review = 1
 

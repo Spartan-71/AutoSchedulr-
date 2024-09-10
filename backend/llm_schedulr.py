@@ -15,11 +15,12 @@ class Event(TypedDict):
     description: str
 
 class LLMScheduler:
-    def __init__(self):
+    def __init__(self,APIkey:str):
         """
         Initialize the Scheduler with the API key for Google Generative AI.
         """
-        genai.configure(api_key=os.environ["API_KEY"])
+        
+        genai.configure(api_key=APIkey)
 
     def process_message(self, message: str) -> List[Event]:
         """
