@@ -1,6 +1,7 @@
 from gcsa.google_calendar import GoogleCalendar
 from beautiful_date import Sept, hours
 from gcsa.event import Event
+from gcsa.reminders import PopupReminder
 from datetime import datetime
 import json
 
@@ -43,7 +44,12 @@ for eve in eve_list:
                 start=start_datetime_obj,
                 end=end_datetime_obj,
                 description=desc,
-                venue=venue)
+                location=venue,
+                reminders=[
+                    PopupReminder(minutes_before_start=60),
+                    PopupReminder(minutes_before_start=30),
+                    PopupReminder(minutes_before_start=15)
+              ])
 
     event = gc.add_event(event)
 

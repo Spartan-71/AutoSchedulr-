@@ -1,8 +1,9 @@
-import google.generativeai as genai
-import PIL.Image
+import sys
 import os
-from typing import TypedDict
 import json
+import PIL.Image
+import google.generativeai as genai
+from typing import TypedDict
 from datetime import date, time
 
 genai.configure(api_key=os.environ["API_KEY"])
@@ -15,6 +16,7 @@ class Event(TypedDict):
     end_time: time
     venue: str
     description: str
+
 
 # Parsing the messages
 SYSTEM_MESSAGE1 = """You are a Scheduler whoes task is to schedule the events/meeting for your boss on his calendar based on the input messages.
@@ -30,24 +32,34 @@ SYSTEM_MESSAGE1 = """You are a Scheduler whoes task is to schedule the events/me
                     Return a `list[event]`
                     NOTE: If any of the following field is missing just leave it empty.The message may contain multiple events.
                     Datatype of the response must be list of json objects."""
-USER_QUESTION = """Greetings everyone! ✨
+USER_QUESTION = """Barclays Internship Registration Drive
 
-As we know, selecting an appropriate theme for the college's annual magazine is one of the important steps in the curation process. ✨
+        Eligible Branches :  All UG
 
-Let us begin the journey of crafting Xenia Volume 27 by deciding a suitable theme for our upcoming masterpiece! Put forth your ideas regarding the theme for college magazine's 27th volume! 📚🎨
+        Role :  Software Engineer Intern
 
-If you have any questions or need further details, feel free to reach out to any of us!
-Shruti Mone: +91 96234 58658
-Amulya Agrawal: +91 88303 21661
+        Job Location : Pune
 
-Form link: https://forms.gle/fCKefRrUap5Je7KD9
+        Company Criteria :  
+        10th & 12th: 70% and above
+        CGPA: 7.0 and above (No Active Backlogs)
 
-Deadline to fill: 21st September, 2024
+        Company Schedule :
+        Assessment Date: 9th September (Online)
+        PPT Date: 10th September (On Campus
+        Interviews: 10th September (On Campus)
 
-Note:
-1. The form is open for everyone including faculty members, not just Xenia members.
-2. This form will take 5-10 minutes to go through it. READ THE FORM COMPLETELY BEFORE PROCEEDING TO FILL IT.
-3. Refer the form description for expected format of theme title and description to be submitted."""
+        Stipend : 75000 /-
+
+        Form Link : https://forms.gle/WsCUqfwqdecGbZgaA
+
+        Form Deadline : 7th September (09:00 AM) Morning
+
+        NOTE :
+        1. Students with on-campus internships are not eligible for this drive.
+        2. The deadline won't get extended.
+        3. Any inaccurate information provided regarding hiring or recruitment slots will be considered misinformation and may result in the termination of all further activities.
+        4. Mention NA if the field is not applicable to you."""
 
 model1 = genai.GenerativeModel(
     model_name="gemini-1.5-flash",
@@ -85,31 +97,18 @@ with open('events.json', 'w') as json_file:
 
 
 # Processing the images (<20MB)
-# SYSTEM_MESSAGE2="""You are a Scheduler whoes task is to schedule the events/meeting for your boss on his calendar based on the input files.
-#                 The uploaded file containes some information about the upcoming schedule of your boss, your task 
-#                 is to analyse the entire document and give out a list of events with title,start-date,end-date,start-time,end-time and 
-#         SYSTEM_MESSAGE2="""You are a Scheduler whoes task is to schedule the events/meeting for your boss on his calendar based on the input files.
-#                 The uploaded file containes some information about the upcoming schedule of your boss, your task 
-#                 is to analyse the entire document and give out a list of events with title,start-date,end-date,start-time,end-time and 
-#                 description (short) in json format. If certain events doesn't contain any of the mentioned parameters then leave it blank. 
-#                 Also if the document is not unrelated i.e doesn't contain any schedule then print something went wrong."""
+SYSTEM_MESSAGE2="""You are a Scheduler whoes task is to schedule the events/meeting for your boss on his calendar based on the input files.
+                The uploaded file containes some information about the upcoming schedule of your boss, your task 
+                is to analyse the entire document and give out a list of events with title,start-date,end-date,start-time,end-time and 
+                description (short) in json format. If certain events doesn't contain any of the mentioned parameters then leave it blank. 
+                Also if the document is not unrelated i.e doesn't contain any schedule then print something went wrong."""
 
-# model2 = genai.GenerativeModel(
-#     model_name="gemini-1.5-flash",
-#     system_instruction=SYSTEM_MESSAGE2,
-#     generation_config={"response_mime_type": "application/json"})
+model2 = genai.GenerativeModel(
+    model_name="gemini-1.5-flash",
+    system_instruction=SYSTEM_MESSAGE2,
+    generation_config={"response_mime_type": "application/json"})
 
-# sample_file = PIL.Image.open('tt.jpg')
-# response = model2.generate_content(contents=sample_file)
+sample_file = PIL.Image.open('tt.jpg')
+response = model2.generate_content(contents=sample_file)
 
-# print(response.text)        description (short) in json format. If certain events doesn't contain any of the mentioned parameters then leave it blank. 
-#                 Also if the document is not unrelated i.e doesn't contain any schedule then print something went wrong."""
-
-# model2 = genai.GenerativeModel(
-#     model_name="gemini-1.5-flash",
-#     system_instruction=SYSTEM_MESSAGE2)
-
-# sample_file = PIL.Image.open('tt.jpg')
-# response = model2.generate_content(contents=sample_file)
-
-# print(response.text)
+print(response.text)        
