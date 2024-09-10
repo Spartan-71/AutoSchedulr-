@@ -37,8 +37,9 @@ with st.sidebar:
 # # if st.session_state:
 # #     authentication()
 
+
 llm_obj= LLMScheduler(APIkey=st.secrets["API_KEY"])
-cal_obj = CalendarScheduler()
+cal_obj = CalendarScheduler(Credentials=st.secrets["GOOGLE_CREDENTIALS"])
 review = 1
 
 st.logo("logo.png")
