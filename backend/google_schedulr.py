@@ -5,11 +5,12 @@ from datetime import datetime
 import json
 
 class CalendarScheduler:
-    def __init__(self,Credentials):
+    def __init__(self):
+    # def __init__(self,Credentials):
         """
         Initialize the CalendarScheduler with a Google Calendar for the given email.
         """
-        self.calendar = GoogleCalendar(credentials=Credentials,save_token=False)
+        self.calendar = GoogleCalendar(save_token=True)
 
     def create_event(self, event_data: dict) -> Event:
         """

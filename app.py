@@ -1,3 +1,4 @@
+import os
 import time
 import streamlit as st
 from backend.llm_schedulr import LLMScheduler
@@ -38,8 +39,10 @@ with st.sidebar:
 # #     authentication()
 
 
-llm_obj= LLMScheduler(APIkey=st.secrets["API_KEY"])
-cal_obj = CalendarScheduler(Credentials=st.secrets["GOOGLE_CREDENTIALS"])
+# llm_obj= LLMScheduler(APIkey=st.secrets["API_KEY"])
+llm_obj= LLMScheduler(APIkey=os.environ["API_KEY"])
+# cal_obj = CalendarScheduler(Credentials=st.secrets["GOOGLE_CREDENTIALS"])
+cal_obj = CalendarScheduler()
 review = 1
 
 st.logo("logo.png")
