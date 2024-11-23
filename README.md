@@ -1,6 +1,4 @@
-# AutoSchedulr
-
-![banner](https://github.com/user-attachments/assets/f429c1e7-03db-42af-9507-67edb47e17c0)
+![6](https://github.com/user-attachments/assets/98a2107e-ef14-4947-9f1a-f52c236dd16a)
 
 Auto Schedulr is a Python-based web application built to streamline your scheduling process by automating the addition of events to your Google Calendar. Sync your timetable effortlessly with Google Calendar for classes, meetings, or appointments.
 
