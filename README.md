@@ -1,4 +1,4 @@
-![6](https://github.com/user-attachments/assets/98a2107e-ef14-4947-9f1a-f52c236dd16a)
+![Schedulr_banner](https://github.com/user-attachments/assets/61028ed8-3c59-4e62-b6f3-00abb991a5a1)
 
 Schedulr is a Python-based web application built to streamline your scheduling process by automating the addition of events to your Google Calendar. Sync your timetable effortlessly with Google Calendar for classes, meetings, or appointments.
 
