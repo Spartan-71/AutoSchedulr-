@@ -1,39 +1,25 @@
-![Schedulr_banner](https://github.com/user-attachments/assets/61028ed8-3c59-4e62-b6f3-00abb991a5a1)
+![banner](Assets/banner.png)
+Schedulr is a multimodal AI agent designed to simplify your scheduling needs by automating the process of adding events, reminders, and tasks to your Google Calendar. Whether you prefer to provide input as text, audio, or images, Schedulr seamlessly integrates these inputs to help you stay organized effortlessly.
 
-Schedulr is a Python-based web application built to streamline your scheduling process by automating the addition of events to your Google Calendar. Sync your timetable effortlessly with Google Calendar for classes, meetings, or appointments.
+## Features
 
-## Key Features
+- **Multimodal Input Support**:
+  - **Text**: Type your event details for quick scheduling.
+  - **Audio**: Speak your event details for hands-free operation.
+  - **Image**: Upload images of schedules or handwritten notes for automated processing.
 
-- **Automated Event Creation**: Automatically add events to Google Calendar based on a timetable input.
-- **Google Calendar Integration**: Seamless syncing of events using the Google Calendar API.
-- **Timetable Input**: Input your schedule manually or upload it in a compatible format.
-- **Custom Event Settings**: Customize event details like reminders and durations.
-- **Streamlit Interface**: A simple and responsive UI built using Streamlit.
+- **Google Calendar Integration**:
+  - Automatically adds events, reminders, and tasks to your Google Calendar.
+
+- **User-Friendly Interface**:
+  - Built with Streamlit for an intuitive and accessible experience.
+
+## Status
+
+Schedulr is currently in the **active development** stage. Some features might be incomplete or subject to change as we enhance the application to meet user needs.
+
+## License
+
+This project is licensed under the Apache License. See the [LICENSE](LICENSE) file for details.
 
 
-## Architecture
-![architecture diagram](https://github.com/user-attachments/assets/9a516c08-9cd4-442b-a196-6cc51af6bf14)
-
-
-## Getting Started
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/YourUsername/schedulr.git
-   ```
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Set up Google Calendar API**:
-   - Create a project on [Google Cloud Console](https://console.cloud.google.com/).
-   - Enable the Google Calendar API.
-   - Set up OAuth 2.0 credentials and download the credentials file.
-   - Add the credentials file to the project directory.
-     
-4. **Run the app**:
-   ```bash
-   streamlit run app.py
-   ```
-
----

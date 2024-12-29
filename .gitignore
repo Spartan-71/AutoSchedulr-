@@ -162,3 +162,5 @@ cython_debug/
 #.idea/
 
 token.json
+LightsailDefaultKey-ap-south-1.pem
+Files/
