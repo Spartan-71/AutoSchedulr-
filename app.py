@@ -1,6 +1,9 @@
 import os
 import time
+import PIL.Image
 import streamlit as st
+import vertexai
+import google.generativeai as genai
 from backend.llm_schedulr import LLMScheduler
 from backend.google_schedulr import CalendarScheduler
 from audio_recorder_streamlit import audio_recorder
@@ -12,16 +15,14 @@ with st.sidebar:
 
     st.divider()
 
-    # with st.expander("**How to Use ?**"):
-    #     st.write("slkdjaksjdlks skdlksl;d")
-    with st.expander("Socials"):
-        st.link_button("Github", "https://github.com/Spartan-71/Schedulr",use_container_width=True)
-        st.link_button("Twitter", "https://x.com/AnishDabhane",use_container_width=True)
+    st.markdown("#### Socials")
+    st.link_button("Github", "https://github.com/Spartan-71/Schedulr",use_container_width=True)
+    st.link_button("Twitter", "https://x.com/AnishDabhane",use_container_width=True)
     
-    with st.expander("**Feedback**"):
-        st.text_area(label="feedback",label_visibility="collapsed")
-        if st.button("SUBMIT"):
-            st.write("Thanks")
+    st.markdown("#### Feedback")
+    st.text_area(label="feedback",label_visibility="collapsed")
+    if st.button("SUBMIT"):
+        st.write("Thanks")
 
     st.markdown("#### RATE US")
     selected = st.feedback('stars')
@@ -29,28 +30,11 @@ with st.sidebar:
         st.write("Thank You :)")
 
 
-
-# @st.dialog("SignIN/SignUp")
-# def authentication():
-#     st.markdown("##### Name")
-#     name = st.text_input(label="Name",label_visibility="collapsed")
-#     st.markdown("##### Gmail_ID")
-#     gmail_id= st.text_input(label="Gmail",label_visibility="collapsed")
-    
-#     if st.button("Submit"):
-#         st.rerun()
-
-# # if st.session_state:
-# #     authentication()
-
-
 # llm_obj= LLMScheduler(APIkey=st.secrets["API_KEY"])
 llm_obj= LLMScheduler(APIkey=os.environ["GEMINI_API_KEY"])
 # cal_obj = CalendarScheduler(Credentials=st.secrets["GOOGLE_CREDENTIALS"])
 # cal_obj = CalendarScheduler()
 review = 1
-
-st.logo("logo.png")
 
 st.title("Schedulr")
 st.write("A Multimodal AI Agent automates adding events, tasks, and reminders to Google Calendar.")
@@ -81,49 +65,26 @@ if st.button("Submit") and msg:
 st.divider()
 
 st.markdown("#### Record")
-
-audio_value = st.audio_input("Record a voice message")
-
+audio_value = st.audio_input("Tap to start recording a voice message")
 st.button("Done")
-
 st.divider()
 
 st.markdown("#### Upload the Image/File")
 
-uploaded_file = st.file_uploader(label="**Upload** an Image/File",label_visibility="collapsed")
+image_file = st.file_uploader(label="**Choose** an Image/File",type=["jpeg","png","jpg"],label_visibility="collapsed")
 # st.warning('File size must be less than 20MB', icon="⚠️")
 
-if st.button("submit") and uploaded_file:
-    file_event_list=llm_obj.process_image(uploaded_file)
+if st.button("Upload") and image_file:
+    st.image(image_file, caption='Uploaded Image', use_container_width=True)
 
+    file_event_list=llm_obj.process_image(image_file)
     if file_event_list:
+        st.write_stream(file_event_list)
         # cal_obj.add_events_to_calendar(file_event_list)
         st.success('Event added to ur Calendar!', icon="✅")
     else:
         st.error('Error is adding event to Calendar',icon="🚨")
     review=st.feedback('thumbs')
     
-
-
 st.divider()
-# upvotes=0
-# downvotes=0
-# if review:
-#     upvotes+=1
-# else:
-#     downvotes+=1
-
-# st.markdown("#### Stats")
-# col1, col2, col3 = st.columns(3)
-# col1.metric("Events Scheduled", "70","+10")
-# col2.metric("Upvotes", upvotes, "+1")
-# col3.metric("Downvotes", downvotes, "4")
-
-# st.divider()
-
-# col4,col5 = st.columns(2)
-# with col4:
-#     st.link_button("Github", "https://github.com/Spartan-71/AutoSchedulr",use_container_width=True)
-# with col5:
-#     st.link_button("Twitter", "https://x.com/AnishDabhane",use_container_width=True)
 
