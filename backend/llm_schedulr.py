@@ -32,6 +32,7 @@ class LLMScheduler:
         SYSTEM_MESSAGE1 = """You are a Scheduler whose task is to schedule the events/meeting for your boss on his calendar based on the input messages.
                             List all the events.
                             Using this JSON schema:
+
                                event = {"title": str,
                                 "start-date":date ("%Y-%m-%d"),
                                 "end-date":date ("%Y-%m-%d"),
@@ -40,11 +41,12 @@ class LLMScheduler:
                                 "venue":str,
                                 "description":str}
                             Return a `list[event]`
+
                             NOTE: If end-time is not mentioned then set end time to 12:00.The message may contain multiple events.
                             """
 
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-1.5-pro",
             system_instruction=SYSTEM_MESSAGE1,
             generation_config={"response_mime_type": "application/json"}
         )
@@ -55,7 +57,7 @@ class LLMScheduler:
 
         return event_list
 
-    def process_image(self, image_path: str) -> List[Event]:
+    def process_image(self, image_file) -> List[Event]:
         """
         Processes an image file and returns a list of events in JSON format.
 
@@ -64,9 +66,20 @@ class LLMScheduler:
         """
         SYSTEM_MESSAGE2 = """You are a Scheduler whose task is to schedule the events/meeting for your boss on his calendar based on the input files.
                             The uploaded file contains some information about the upcoming schedule of your boss, your task 
-                            is to analyze the entire document and give out a list of events with title,start-date,end-date,start-time,end-time and 
-                            description (short) in JSON format. If certain events don't contain any of the mentioned parameters then leave it blank. 
-                            Also if the document is unrelated i.e. doesn't contain any schedule then print something went wrong."""
+                            is to analyze the entire document and give out a list of events.
+                            Using this JSON schema:
+
+                               event = {"title": str,
+                                "start-date":date ("%Y-%m-%d"),
+                                "end-date":date ("%Y-%m-%d"),
+                                "start-time":time ("%H:%M"),
+                                "end-time":time ("%H:%M"),
+                                "venue":str,
+                                "description":str}
+                            Return a `list[event]`
+
+                            NOTE: If end-time is not mentioned then set end time to 12:00.The message may contain multiple events.
+                            Also if the document is unrelated i.e. doesn't contain any schedule then output No Schedule found in the document!"""
 
         model = genai.GenerativeModel(
             model_name="gemini-1.5-flash",
@@ -74,12 +87,16 @@ class LLMScheduler:
             generation_config={"response_mime_type": "application/json"}
         )
 
-        sample_file = PIL.Image.open(image_path)
-        response = model.generate_content(contents=sample_file)
+        img_dir = "Files/Images/"
+        fpath = os.path.join(img_dir,image_file.name)
+
+        file = PIL.Image.open(fpath)
+        prompt = "Analyze the Image carefully and if description is to big then make it short."
+        response = model.generate_content([prompt,file],request_options={"timeout":400})
+        print(response.text)
         json_data = response.text
         event_list = json.loads(json_data)
-
-        return event_list
+        return event_list["events"]
 
 # # Example usage
 # if __name__ == "__main__":
